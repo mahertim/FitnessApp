@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // feature modules
 
 // containers
-import { AuthFormComponent } from './containers/auth-form/auth-form.component';
+import { AuthFormComponent } from './components/auth-form/auth-form.component';
 
 // components
 
