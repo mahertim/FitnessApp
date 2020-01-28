@@ -7,7 +7,6 @@ import { tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { User } from '../../models/user.model';
-
 import * as fromStore from '../../store';
 import * as fromActions from '../../store/actions';
 
@@ -40,5 +39,9 @@ export class AuthService {
 
   loginUser(email: string, password: string) {
     return this.af.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  logoutUser() {
+    return this.af.auth.signOut();
   }
 }

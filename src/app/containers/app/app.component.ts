@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, of } from 'rxjs';
 
@@ -17,6 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromStore.AuthState>,
+    private router: Router,
     private authService: AuthService,
   ) {}
 
@@ -29,5 +32,10 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  async onLogout() {
+    await this.authService.logoutUser();
+    this.router.navigate(['/auth/login']);
   }
 }
