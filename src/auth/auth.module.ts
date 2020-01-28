@@ -13,10 +13,14 @@ import { AuthRoutingModule } from './auth-routing.module';
 // shared modules
 import { SharedModule } from './shared/shared.module';
 
+// store
+import { reducers } from './shared/store';
+
 // third-party modules
 import { AngularFireModule, FirebaseAppConfig } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { StoreModule } from '@ngrx/store';
 
 export const firebaseConfig: FirebaseAppConfig = {
   apiKey: 'AIzaSyCnXxIGnuQbeqvC_qjBqO8UtKSYd-Gsqgs',
@@ -36,6 +40,7 @@ export const firebaseConfig: FirebaseAppConfig = {
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     SharedModule.forRoot(),
+    StoreModule.forFeature('auth', reducers),
   ],
 })
 export class AuthModule {}

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { Store } from 'store';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 // feature modules
 import { AuthModule } from '../auth/auth.module';
@@ -16,8 +17,23 @@ import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, AuthModule],
-  providers: [Store],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AuthModule,
+    StoreModule.forRoot(
+      {},
+      {
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+          strictStateSerializability: true,
+        },
+      },
+    ),
+    StoreDevtoolsModule.instrument(),
+  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
