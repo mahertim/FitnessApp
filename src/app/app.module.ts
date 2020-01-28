@@ -6,6 +6,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 // feature modules
 import { AuthModule } from '../auth/auth.module';
+import { HealthModule } from '../health/health.module';
 
 // containers
 import { AppComponent } from './containers/app/app.component';
@@ -23,6 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    HealthModule,
     StoreModule.forRoot(
       {},
       {
