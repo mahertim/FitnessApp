@@ -11,7 +11,7 @@ export const ROUTES: Routes = [
   },
   {
     path: 'meals',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: './meals/meals.module#MealsModule',
   },
   {

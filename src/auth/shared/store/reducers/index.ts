@@ -8,6 +8,10 @@ export interface AuthState {
   userState: fromUser.UserState;
 }
 
+export const initialState: AuthState = {
+  userState: fromUser.initialState,
+};
+
 export type AuthAction = UserAction;
 
 export const reducers: ActionReducerMap<AuthState, AuthAction> = {
