@@ -1,14 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { Meal } from '../../../shared/models/meal.model';
 
 @Component({
   selector: 'app-meal',
   styleUrls: ['./meal.component.scss'],
   templateUrl: './meal.component.html',
 })
-export class MealComponent implements OnInit, OnDestroy {
+export class MealComponent {
   constructor() {}
 
-  ngOnInit() {}
-
-  ngOnDestroy() {}
+  addMeal(event: Meal) {
+    console.log('meal:', event);
+  }
 }
