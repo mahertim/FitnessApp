@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // containers
 import { MealsComponent } from './containers/meals/meals.component';
+import { MealComponent } from './containers/meal/meal.component';
 
 // components
 
@@ -12,6 +13,6 @@ import { MealsRoutingModule } from './meals-routing.module';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, MealsRoutingModule],
-  declarations: [MealsComponent],
+  declarations: [MealsComponent, MealComponent],
 })
 export class MealsModule {}
