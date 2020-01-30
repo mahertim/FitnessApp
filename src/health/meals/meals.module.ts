@@ -12,8 +12,16 @@ import { MealFormComponent } from './components/meal-form/meal-form.component';
 // routing
 import { MealsRoutingModule } from './meals-routing.module';
 
+// shared module
+import { SharedModule } from '../shared/shared.module';
+
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, MealsRoutingModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MealsRoutingModule,
+    SharedModule,
+  ],
   declarations: [MealsComponent, MealComponent, MealFormComponent],
 })
 export class MealsModule {}

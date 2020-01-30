@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 
+import { Store } from '@ngrx/store';
+
 import { Meal } from '../../../shared/models/meal.model';
+
+import * as fromStore from '../../../shared/store';
 
 @Component({
   selector: 'app-meal',
@@ -8,9 +12,9 @@ import { Meal } from '../../../shared/models/meal.model';
   templateUrl: './meal.component.html',
 })
 export class MealComponent {
-  constructor() {}
+  constructor(private store: Store<fromStore.HealthState>) {}
 
   addMeal(event: Meal) {
-    console.log('meal:', event);
+    this.store.dispatch(new fromStore.AddMeal(event));
   }
 }

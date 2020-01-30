@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 
-import { AuthService } from '../../../shared/services/auth/auth.service';
+import { Store } from '@ngrx/store';
+
+import * as fromStore from '../../../shared/store';
 
 @Component({
   selector: 'app-register',
@@ -11,15 +12,11 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
 export class RegisterComponent {
   error = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private store: Store<fromStore.AuthState>) {
+    console.log(this.store);
+  }
 
   async registerUser(event: FormGroup) {
-    const { email, password } = event.value;
-    try {
-      await this.authService.createUser(email, password);
-      this.router.navigate(['/']);
-    } catch (err) {
-      this.error = err.message;
-    }
+    console.log(event);
   }
 }

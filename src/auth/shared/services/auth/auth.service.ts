@@ -1,44 +1,33 @@
 import { Injectable } from '@angular/core';
-
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { tap } from 'rxjs/operators';
-
-import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 
 import { User } from '../../models/user.model';
-import * as fromStore from '../../store';
-import * as fromActions from '../../store/actions';
 
 @Injectable()
 export class AuthService {
-  auth$ = this.af.authState.pipe(
-    tap((next) => {
-      if (!next) {
-        this.store.dispatch(new fromActions.SetUser(null));
-        return;
-      } else {
-        const user: User = {
-          email: next.email,
-          uid: next.uid,
-          authenticated: true,
-        };
-        this.store.dispatch(new fromActions.SetUser(user));
-      }
-    }),
-  );
+  user: User | null = null;
 
-  constructor(
-    private store: Store<fromStore.AuthState>,
-    private af: AngularFireAuth,
-  ) {}
-
-  get user() {
-    return this.af.auth.currentUser;
-  }
+  constructor(private af: AngularFireAuth) {}
 
   get authState() {
     return this.af.authState;
+  }
+
+  loadUser() {
+    return this.af.authState.pipe(
+      map(
+        (next) =>
+          (this.user = next
+            ? {
+                email: next.email ? next.email : '',
+                uid: next.uid,
+                authenticated: true,
+              }
+            : null),
+      ),
+    );
   }
 
   createUser(email: string, password: string) {
@@ -46,7 +35,21 @@ export class AuthService {
   }
 
   loginUser(email: string, password: string) {
-    return this.af.auth.signInWithEmailAndPassword(email, password);
+    this.af.auth.signInWithEmailAndPassword(email, password);
+    const user = this.af.authState.pipe(
+      map((next) => {
+        if (!next) {
+          return null;
+        } else {
+          return {
+            email: next.email,
+            uid: next.uid,
+            authenticated: true,
+          };
+        }
+      }),
+    );
+    return user;
   }
 
   logoutUser() {

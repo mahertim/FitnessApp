@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '../auth/shared/guards/auth.guard';
+import { MealsGuard } from './shared/guards/meals.guard';
 
 export const ROUTES: Routes = [
   {
@@ -11,7 +12,7 @@ export const ROUTES: Routes = [
   },
   {
     path: 'meals',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard, MealsGuard],
     loadChildren: './meals/meals.module#MealsModule',
   },
   {

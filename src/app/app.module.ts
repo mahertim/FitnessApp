@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 // feature modules
 import { AuthModule } from '../auth/auth.module';
@@ -18,6 +19,9 @@ import { AppNavComponent } from './components/app-nav/app-nav.component';
 // routing
 import { AppRoutingModule } from './app-routing.module';
 
+// store
+import * as fromStore from './store';
+
 @NgModule({
   declarations: [AppComponent, AppHeaderComponent, AppNavComponent],
   imports: [
@@ -25,16 +29,14 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     AuthModule,
     HealthModule,
-    StoreModule.forRoot(
-      {},
-      {
-        runtimeChecks: {
-          strictStateImmutability: true,
-          strictActionImmutability: true,
-          strictStateSerializability: true,
-        },
+    StoreModule.forRoot(fromStore.reducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
       },
-    ),
+    }),
+    EffectsModule.forRoot(fromStore.effects),
     StoreDevtoolsModule.instrument(),
   ],
   providers: [],

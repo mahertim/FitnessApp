@@ -9,13 +9,15 @@ import { HealthRoutingModule } from './health-routing.module';
 import { SharedModule } from './shared/shared.module';
 
 // store
-import { reducers } from './shared/store';
+import { reducers, effects } from './shared/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   imports: [
     HealthRoutingModule,
     SharedModule.forRoot(),
     StoreModule.forFeature('health', reducers),
+    EffectsModule.forFeature(effects),
   ],
 })
 export class HealthModule {}

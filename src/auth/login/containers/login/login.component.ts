@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 
-import { AuthService } from '../../../shared/services/auth/auth.service';
+import { Store } from '@ngrx/store';
+
+import * as fromStore from '../../../shared/store';
 
 @Component({
   selector: 'app-login',
@@ -11,15 +12,9 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
 export class LoginComponent {
   error = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private store: Store<fromStore.AuthState>) {}
 
-  async loginUser(event: FormGroup) {
-    const { email, password } = event.value;
-    try {
-      await this.authService.loginUser(email, password);
-      this.router.navigate(['/']);
-    } catch (err) {
-      this.error = err.message;
-    }
+  loginUser(event: FormGroup) {
+    this.store.dispatch(new fromStore.LoginUser(event.value));
   }
 }

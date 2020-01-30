@@ -1,24 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 
-import { Store } from '@ngrx/store';
-
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 import { AuthService } from '../../../../auth/shared/services/auth/auth.service';
-import * as fromStore from '../../store';
 import { Meal } from '../../models/meal.model';
 
 @Injectable()
 export class MealsService {
-  meals$: Observable<Meal[]> = this.db
-    .list<Meal>(`meals/${this.uid}`)
-    .valueChanges()
-    .pipe(tap((next) => this.store.dispatch(new fromStore.SetMeals(next))));
-
   constructor(
-    private store: Store<fromStore.HealthState>,
     private db: AngularFireDatabase,
     private authService: AuthService,
   ) {}
@@ -29,5 +19,16 @@ export class MealsService {
     } else {
       return null;
     }
+  }
+
+  getMeals(): Observable<Meal[]> {
+    return this.db.list(`meals/${this.uid}`).valueChanges() as Observable<
+      Meal[]
+    >;
+  }
+
+  addMeal(meal: Meal): Observable<Meal> {
+    this.db.list(`meals/${this.uid}`).push(meal);
+    return of(meal);
   }
 }

@@ -13,3 +13,13 @@ export const getMeals = createSelector(
   getMealsState,
   fromMeals.getMealsStateMeals,
 );
+
+export const getMealsLoaded = createSelector(
+  getMealsState,
+  (state: fromMeals.MealsState) => state.loaded,
+);
+
+export const getMealsLoading = createSelector(
+  getMealsState,
+  (state: fromMeals.MealsState) => state.loading,
+);

@@ -10,3 +10,13 @@ export const getUserState = createSelector(
 );
 
 export const getUser = createSelector(getUserState, fromUser.getUserStateUser);
+
+export const getUserLoading = createSelector(
+  getUserState,
+  (state: fromUser.UserState) => state.loading,
+);
+
+export const getUserLoaded = createSelector(
+  getUserState,
+  (state: fromUser.UserState) => state.loaded,
+);
