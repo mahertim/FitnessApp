@@ -9,9 +9,15 @@ export const getMealsState = createSelector(
   (state: fromFeature.HealthState) => state.mealsState,
 );
 
+export const getMealEntities = createSelector(
+  getMealsState,
+  (state: fromMeals.MealsState) => state.mealEntities,
+);
+
 export const getMeals = createSelector(
   getMealsState,
-  fromMeals.getMealsStateMeals,
+  (state: fromMeals.MealsState) =>
+    Object.keys(state.mealEntities).map(($key) => state.mealEntities[$key]),
 );
 
 export const getMealsLoaded = createSelector(

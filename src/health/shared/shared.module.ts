@@ -1,5 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 // components
@@ -12,7 +13,7 @@ import { MealsService } from './services/meals/meals.service';
 import { MealsGuard } from './guards/meals.guard';
 
 @NgModule({
-  imports: [CommonModule, AngularFireDatabaseModule],
+  imports: [CommonModule, RouterModule, AngularFireDatabaseModule],
   declarations: [ListItemComponent],
   exports: [ListItemComponent],
 })

@@ -41,7 +41,33 @@ export class MealsEffects {
     this.actions$.pipe(
       ofType(fromActions.ADD_MEAL_SUCCESS),
       map((action: fromActions.AddMealSuccess) => action.payload),
-      map((_meal: Meal) => {
+      map((meal: Meal) => {
+        if (meal) {
+          return new Go({ path: ['../meals', meal.$key] });
+        } else {
+          return new Go({ path: ['../meals'] });
+        }
+      }),
+    ),
+  );
+
+  removeMeal$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromActions.REMOVE_MEAL),
+      map((action: fromActions.RemoveMeal) => action.payload),
+      switchMap((meal: Meal) => {
+        return this.mealsService.removeMeal(meal).pipe(
+          map((theMeal) => new fromActions.RemoveMealSuccess(theMeal)),
+          catchError((error) => of(new fromActions.RemoveMealFail(error))),
+        );
+      }),
+    ),
+  );
+
+  removeMealSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromActions.REMOVE_MEAL_SUCCESS),
+      map(() => {
         return new Go({ path: ['/meals/'] });
       }),
     ),

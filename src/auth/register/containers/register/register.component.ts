@@ -12,11 +12,9 @@ import * as fromStore from '../../../shared/store';
 export class RegisterComponent {
   error = '';
 
-  constructor(private store: Store<fromStore.AuthState>) {
-    console.log(this.store);
-  }
+  constructor(private store: Store<fromStore.AuthState>) {}
 
   async registerUser(event: FormGroup) {
-    console.log(event);
+    this.store.dispatch(new fromStore.RegisterUser(event.value));
   }
 }

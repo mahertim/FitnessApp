@@ -20,4 +20,8 @@ export class MealsComponent implements OnInit {
   ngOnInit() {
     this.meals$ = this.store.select(fromStore.getMeals);
   }
+
+  removeMeal(event: Meal) {
+    this.store.dispatch(new fromStore.RemoveMeal(event));
+  }
 }

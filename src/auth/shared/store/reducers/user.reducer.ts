@@ -27,7 +27,6 @@ export function reducer(
     }
 
     case fromActions.LOAD_USER_SUCCESS: {
-      console.log(action.payload);
       return {
         ...state,
         loading: false,
@@ -66,6 +65,55 @@ export function reducer(
     }
 
     case fromActions.LOGIN_USER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+      };
+    }
+
+    case fromActions.SIGN_OUT_USER: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case fromActions.SIGN_OUT_USER_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        user: null,
+      };
+    }
+
+    case fromActions.SIGN_OUT_USER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+      };
+    }
+
+    case fromActions.REGISTER_USER: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case fromActions.REGISTER_USER_SUCCESS: {
+      const user = action.payload;
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        user,
+      };
+    }
+
+    case fromActions.REGISTER_USER_FAIL: {
       return {
         ...state,
         loading: false,

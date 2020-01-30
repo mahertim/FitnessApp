@@ -12,10 +12,10 @@ export class AuthGuard implements CanActivate {
   constructor(private store: Store<fromStore.AuthState>) {}
 
   canActivate() {
+    this.store.dispatch(new fromStore.LoadUser());
     return this.store.select(fromStore.getUser).pipe(
       map((user) => {
         if (!user) {
-          this.store.dispatch(new fromStore.LoadUser());
           return false;
         } else {
           return true;

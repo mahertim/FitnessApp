@@ -23,5 +23,7 @@ export class AppComponent implements OnInit {
     this.user$ = this.store.select(fromAuth.getUser);
   }
 
-  async onLogout() {}
+  onLogout() {
+    this.store.dispatch(new fromAuth.SignOutUser());
+  }
 }

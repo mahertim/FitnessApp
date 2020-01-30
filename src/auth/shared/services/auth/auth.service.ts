@@ -30,8 +30,9 @@ export class AuthService {
     );
   }
 
-  createUser(email: string, password: string) {
-    return this.af.auth.createUserWithEmailAndPassword(email, password);
+  registerUser(email: string, password: string) {
+    this.af.auth.createUserWithEmailAndPassword(email, password);
+    return this.loginUser(email, password);
   }
 
   loginUser(email: string, password: string) {

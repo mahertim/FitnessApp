@@ -2,14 +2,16 @@ import { Meal } from '../../models/meal.model';
 
 import * as fromActions from '../actions/meals.action';
 
+import { mapToEntities } from '../../util/map-to-entities.helper';
+
 export interface MealsState {
-  meals: Meal[] | [];
+  mealEntities: { [key: string]: Meal };
   loading: boolean;
   loaded: boolean;
 }
 
 export const initialState: MealsState = {
-  meals: [],
+  mealEntities: {},
   loading: false,
   loaded: false,
 };
@@ -32,7 +34,7 @@ export function reducer(
         ...state,
         loaded: true,
         loading: false,
-        meals: action.payload,
+        mealEntities: mapToEntities(action.payload, state.mealEntities),
       };
     }
 
@@ -53,7 +55,35 @@ export function reducer(
     case fromActions.ADD_MEAL_SUCCESS: {
       return {
         ...state,
-        meals: [...state.meals, action.payload],
+      };
+    }
+
+    case fromActions.ADD_MEAL_FAIL: {
+      return {
+        ...state,
+      };
+    }
+
+    case fromActions.REMOVE_MEAL: {
+      return {
+        ...state,
+      };
+    }
+
+    case fromActions.REMOVE_MEAL_SUCCESS: {
+      const {
+        [action.payload.$key]: removed,
+        ...mealEntities
+      } = state.mealEntities;
+      return {
+        ...state,
+        mealEntities,
+      };
+    }
+
+    case fromActions.REMOVE_MEAL_FAIL: {
+      return {
+        ...state,
       };
     }
 
@@ -63,5 +93,3 @@ export function reducer(
   }
   return { ...state };
 }
-
-export const getMealsStateMeals = (state: MealsState) => state.meals;

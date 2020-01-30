@@ -42,6 +42,26 @@ export class AddMealFail implements Action {
   constructor(public payload: any) {}
 }
 
+// remove meal
+export const REMOVE_MEAL = '[Health] Remove Meal';
+export const REMOVE_MEAL_SUCCESS = '[Health] Remove Meal Success';
+export const REMOVE_MEAL_FAIL = '[Health] Remove Meal Fail';
+
+export class RemoveMeal implements Action {
+  readonly type = REMOVE_MEAL;
+  constructor(public payload: Meal) {}
+}
+
+export class RemoveMealSuccess implements Action {
+  readonly type = REMOVE_MEAL_SUCCESS;
+  constructor(public payload: Meal) {}
+}
+
+export class RemoveMealFail implements Action {
+  readonly type = REMOVE_MEAL_FAIL;
+  constructor(public payload: string) {}
+}
+
 // action types
 export type MealsAction =
   | LoadMeals
@@ -49,4 +69,7 @@ export type MealsAction =
   | LoadMealsFail
   | AddMeal
   | AddMealSuccess
-  | AddMealFail;
+  | AddMealFail
+  | RemoveMeal
+  | RemoveMealSuccess
+  | RemoveMealFail;
