@@ -4,6 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer,
+} from '@ngrx/router-store';
 
 // feature modules
 import { AuthModule } from '../auth/auth.module';
@@ -37,9 +41,12 @@ import * as fromStore from './store';
       },
     }),
     EffectsModule.forRoot(fromStore.effects),
+    StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument(),
   ],
-  providers: [],
+  providers: [
+    { provide: RouterStateSerializer, useClass: fromStore.CustomSerializer },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
